@@ -1,10 +1,74 @@
-// getUsers e createUser, ambos com id e name.
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
+import * as userService from '../services/userService'
 
-export const getUsers = (_req: Request, res: Response) => {
-  res.json([{ id: 1, name: 'jusef' }])
+export const getUsers = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const users = await userService.getUsers()
+    res.json(users)
+  } catch (err) {
+    next(err)
+  }
 }
 
-export const createUser = (_req: Request, res: Response) => {
-  res.json([{ id: 2, name: 'chungus' }])
+export const getUserById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = Number(req.params.id)
+    const user = await userService.getUsersById(id)
+    if (!user)
+      return res.status(400).json({ message: 'Usuário não encontrado' })
+    res.json(user)
+  } catch (err) {
+    next(err)
+  }
+}
+
+export const createUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { name, email } = req.body
+    const user = await userService.createUser(name, email)
+    res.status(201).json(user)
+  } catch (err) {
+    next(err)
+  }
+}
+
+export const updateUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = Number(req.params.id)
+    const { name, email } = req.body
+    const user = await userService.updateUser(id, name, email)
+    res.json(user)
+  } catch (err) {
+    next(err)
+  }
+}
+
+export const deleteUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = Number(req.params.id)
+    await userService.deleteUser(id)
+    res.status(204).send() // sem body
+  } catch (err) {
+    next(err)
+  }
 }

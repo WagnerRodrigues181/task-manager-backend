@@ -26,3 +26,5 @@ Thumbs.db
 # Arquivos de cache
 .cache/
 *.swp
+
+/src/generated/prisma

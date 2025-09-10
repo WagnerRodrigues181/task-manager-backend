@@ -1,6 +1,13 @@
 import { Request, Response, NextFunction } from 'express'
 
-export const logger = (req: Request, _res: Response, next: NextFunction) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`)
+export const requestLogger = (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
+  const now = new Date().toLocaleString('pt-BR', {
+    timeZone: 'America/Sao_Paulo'
+  })
+  console.log(`[${now}] ${req.method} ${req.url}`)
   next()
 }

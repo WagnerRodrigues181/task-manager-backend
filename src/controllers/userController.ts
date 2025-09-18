@@ -66,8 +66,12 @@ export const updateUser = async (
   try {
     const id = Number(req.params.id)
     const { name, email } = req.body
-    const user = await userService.updateUser(id, name, email)
-    res.json(user)
+    const updatedUser = await userService.updateUser(id, name, email)
+
+    res.json({
+      message: 'Usuário atualizado com sucesso',
+      user: updatedUser
+    })
   } catch (err) {
     next(err)
   }
@@ -81,7 +85,8 @@ export const deleteUser = async (
   try {
     const id = Number(req.params.id)
     await userService.deleteUser(id)
-    res.status(204).send() // sem body
+
+    res.status(200).json({ message: 'Usuário deletado com sucesso' })
   } catch (err) {
     next(err)
   }

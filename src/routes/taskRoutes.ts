@@ -6,8 +6,11 @@ import {
   updateTask,
   deleteTask
 } from '../controllers/taskController'
+import { authMiddleware } from '../middlewares/authMiddleware'
 
 const router = Router()
+
+router.use(authMiddleware)
 
 router.get('/', getTasks)
 router.get('/:id', getTaskById)

@@ -2,12 +2,13 @@ import { Request, Response, NextFunction } from 'express'
 import * as taskService from '../services/taskService'
 
 export const getTasks = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const tasks = await taskService.getTasks()
+    const userId = (req as any).userId
+    const tasks = await taskService.getTasks(userId)
     res.json(tasks)
   } catch (err) {
     next(err)
@@ -20,8 +21,10 @@ export const getTaskById = async (
   next: NextFunction
 ) => {
   try {
+    const userId = (req as any).userId
     const id = Number(req.params.id)
-    const task = await taskService.getTaskById(id)
+
+    const task = await taskService.getTaskById(id, userId)
 
     if (!task) {
       return res.status(404).json({ message: 'Tarefa não encontrada' })
@@ -39,7 +42,9 @@ export const createTask = async (
   next: NextFunction
 ) => {
   try {
-    const { description, userId } = req.body
+    const userId = (req as any).userId
+    const { description } = req.body
+
     const task = await taskService.createTask(description, userId)
     res.status(201).json(task)
   } catch (err) {
@@ -53,10 +58,20 @@ export const updateTask = async (
   next: NextFunction
 ) => {
   try {
+    const userId = (req as any).userId
     const id = Number(req.params.id)
     const { description, concluded } = req.body
-    const task = await taskService.updateTask(id, { description, concluded })
-    res.json(task)
+
+    const updated = await taskService.updateTask(id, userId, {
+      description,
+      concluded
+    })
+
+    if (updated.count === 0) {
+      return res.status(404).json({ message: 'Tarefa não encontrada' })
+    }
+
+    res.json({ message: 'Tarefa atualizada com sucesso' })
   } catch (err) {
     next(err)
   }
@@ -68,9 +83,16 @@ export const deleteTask = async (
   next: NextFunction
 ) => {
   try {
+    const userId = (req as any).userId
     const id = Number(req.params.id)
-    await taskService.deleteTask(id)
-    res.status(204).send() // sem conteúdo
+
+    const deleted = await taskService.deleteTask(id, userId)
+
+    if (deleted.count === 0) {
+      return res.status(404).json({ message: 'Tarefa não encontrada' })
+    }
+
+    res.status(200).json({ message: 'Tarefa deletada com sucesso' })
   } catch (err) {
     next(err)
   }

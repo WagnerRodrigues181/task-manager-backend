@@ -28,3 +28,5 @@ Thumbs.db
 *.swp
 
 /src/generated/prisma
+
+/src/generated/prisma

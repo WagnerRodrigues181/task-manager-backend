@@ -1,14 +1,15 @@
 import prisma from '../prisma'
 
-export const getTasks = async () => {
+export const getTasks = async (userId: number) => {
   return prisma.task.findMany({
+    where: { userId },
     include: { user: true }
   })
 }
 
-export const getTaskById = async (id: number) => {
-  return prisma.task.findUnique({
-    where: { id },
+export const getTaskById = async (id: number, userId: number) => {
+  return prisma.task.findFirst({
+    where: { id, userId },
     include: { user: true }
   })
 }
@@ -21,16 +22,17 @@ export const createTask = async (description: string, userId: number) => {
 
 export const updateTask = async (
   id: number,
+  userId: number,
   data: { description?: string; concluded?: boolean }
 ) => {
-  return prisma.task.update({
-    where: { id },
+  return prisma.task.updateMany({
+    where: { id, userId },
     data
   })
 }
 
-export const deleteTask = async (id: number) => {
-  return prisma.task.delete({
-    where: { id }
+export const deleteTask = async (id: number, userId: number) => {
+  return prisma.task.deleteMany({
+    where: { id, userId }
   })
 }

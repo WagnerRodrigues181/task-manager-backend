@@ -9,6 +9,17 @@ Este repositório contém um projeto fullstack pessoal desenvolvido como um labo
 - **Frontend**: Desenvolvido com React e TypeScript, utilizando Material UI para a interface.
 - **Criado como laboratório prático**: Para fixar conhecimento e experimentar novas tecnologias de forma organizada.
 
+## Tech Stack
+
+<div style="display: flex; gap: 10px; align-items: center;">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" width="40"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg" alt="Express" width="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg" alt="Prisma" width="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" width="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" width="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg" alt="Material UI" width="40"/>
+</div>
+
 ## Como Rodar Localmente
 
 1. Clone o repositório:  

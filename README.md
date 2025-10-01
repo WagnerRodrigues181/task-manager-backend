@@ -23,7 +23,7 @@ Este repositório contém um projeto fullstack pessoal desenvolvido como um labo
 ## Como Rodar Localmente
 
 1. Clone o repositório:  
-   `git clone https://github.com/seu-usuario/task-manager-fullstack.git`
+   `git clone https://github.com/WagnerRodrigues181/task-manager-fullstack.git`
 2. Entre na pasta do projeto:  
    `cd task-manager-fullstack`
 3. **Backend:**
